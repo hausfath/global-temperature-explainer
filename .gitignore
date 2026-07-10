@@ -1,0 +1,14 @@
+# Raw GHCN-M v4 station data — too large for git (the .dat files are ~165 MB each,
+# over GitHub's 100 MB limit). Download from NOAA instead; see METHODOLOGY.md.
+ghcn_m/
+
+# Python
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store
+
+# Scratch
+scratch/
+*.tmp
