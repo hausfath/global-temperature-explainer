@@ -1,7 +1,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Does a "global temperature" even exist? Build one and find out.</title>
-<meta name="description" content="An interactive walkthrough of how scientists turn thousands of individual thermometers into a single global temperature record — and why the answer is precise, reproducible, and real.">
+<meta name="description" content="An interactive walkthrough of how scientists turn thousands of individual thermometers into a single global temperature record, and why that answer is precise, reproducible, and real.">
 <style>
 /*__FONTS_CSS__*/
 
@@ -219,8 +219,8 @@ hr.rule{border:0; border-top:1px solid var(--rule); max-width:var(--readw); marg
   <div class="wrap">
     <p class="kicker reveal">Can you average a thermometer?</p>
     <h1 class="reveal">Does a “global temperature” even exist?</h1>
-    <p class="dek reveal">A recurring claim says no — that averaging thermometers is physically meaningless, and the error bars swamp any signal. So let’s not argue. Let’s take thousands of real thermometers and <em>build</em> a global temperature record, one honest step at a time.</p>
-    <p class="byline reveal">An interactive explainer · built from ~28,000 GHCN land stations · every number reproducible</p>
+    <p class="dek reveal">A recurring claim says no: averaging thermometers is physically meaningless, the argument goes, and the error bars swamp any signal. So let’s not argue. Let’s take thousands of real thermometers and <em>build</em> a global temperature record, one honest step at a time.</p>
+    <p class="byline reveal">An interactive explainer · built from ~28,000 land weather stations · every number reproducible</p>
     <div class="scrollcue reveal"><span class="ln"></span> Scroll to begin</div>
   </div>
 </header>
@@ -229,29 +229,29 @@ hr.rule{border:0; border-top:1px solid var(--rule); max-width:var(--readw); marg
 
 <!-- ============ 1. THE CLAIM ============ -->
 <section id="claim"><div class="wrap read">
-  <p class="sec-no reveal">01 — The objection</p>
+  <p class="sec-no reveal">01 · The objection</p>
   <h2 class="reveal">The skeptic’s case, stated fairly</h2>
-  <p class="lead reveal">Every so often a (self-published) paper circulates arguing that the global mean surface temperature is not just uncertain but <em>impossible</em> — “physically meaningless,” a statistical fiction dressed up with a degree symbol. The arguments usually come in three flavors, and the honest thing to admit up front is that two of them contain a real grain of truth.</p>
+  <p class="lead reveal">Every so often a (self-published) paper circulates arguing that the global mean surface temperature is not just uncertain but <em>impossible</em>: “physically meaningless,” a statistical fiction dressed up with a degree symbol. The arguments usually come in three flavors, and the honest thing to admit up front is that two of them contain a real grain of truth.</p>
   <div class="reveal">
-  <p><strong>“You can’t average temperature.”</strong> Temperature is an intensive property — a mountaintop at 5C and a valley at 15C don’t combine into a system at 10C. Averaging them, the argument goes, is a category error.</p>
-  <p><strong>“The choice of average is arbitrary.”</strong> There are infinitely many kinds of mean — arithmetic, geometric, harmonic, root-mean-square. Nothing in physics tells you which to use, so the answer is whatever you pick.</p>
+  <p><strong>“You can’t average temperature.”</strong> Temperature is an intensive property. A mountaintop at 5C and a valley at 15C don’t combine into a system at 10C, so averaging them, the argument goes, is a category error.</p>
+  <p><strong>“The choice of average is arbitrary.”</strong> There are infinitely many kinds of mean: arithmetic, geometric, harmonic, root-mean-square. Nothing in physics tells you which to use, so the answer is whatever you pick.</p>
   <p><strong>“The thermometers are too crude and too sparse.”</strong> Individual readings carry errors of half a degree or more; coverage has changed wildly over 150 years; whole oceans go unsampled. How could the average possibly be known to hundredths of a degree?</p>
   </div>
-  <p class="pull reveal">Here’s the thing: if you build a global temperature the <b>naive</b> way, the skeptics are basically right. It <b>is</b> nearly meaningless. The interesting part is <b>why the real method isn’t</b> — and you can watch the fix happen.</p>
-  <p class="reveal small" style="color:var(--muted)">Below, every chart is computed from the actual Global Historical Climatology Network (GHCN v4) monthly land data — the same raw station records NOAA, NASA, and Berkeley Earth start from. Nothing is illustrative; you’re looking at the real numbers. Hover any chart to read values.</p>
+  <p class="pull reveal">Here’s the thing: if you build a global temperature the <b>naive</b> way, the skeptics are basically right. It <b>is</b> nearly meaningless. The interesting part is <b>why the real method isn’t</b>, and you can watch the fix happen.</p>
+  <p class="reveal small" style="color:var(--muted)">Below, every chart is computed from the actual Global Historical Climatology Network (GHCN v4) monthly land data, the same raw station records NOAA, NASA, and Berkeley Earth start from. Nothing is illustrative; you’re looking at the real numbers. Hover any chart to read values.</p>
 </div></section>
 
 <!-- ============ 2. NAIVE ATTEMPT ============ -->
 <section id="naive"><div class="wrap">
   <div class="read">
-    <p class="sec-no reveal">02 — The naive attempt</p>
+    <p class="sec-no reveal">02 · The naive attempt</p>
     <h2 class="reveal">First, do the dumb thing</h2>
-    <p class="reveal">The obvious way to make a global temperature: take every station reporting in a given year, read the thermometer, average the numbers. Here is exactly that — the plain arithmetic mean of every GHCN station’s annual temperature, in degrees C, from 1850 to today.</p>
+    <p class="reveal">The obvious way to make a global temperature: take every station reporting in a given year, read the thermometer, average the numbers. Here is exactly that, the plain arithmetic mean of every GHCN station’s annual temperature, in degrees C, from 1850 to today.</p>
   </div>
   <figure class="fig reveal">
     <div class="fig-hd"><span class="fig-title">The average of every thermometer reading, as-is</span><span class="fig-sub" id="naive-sub"></span></div>
     <div class="chart" id="chart-naive"></div>
-    <figcaption>Averaging <b>absolute</b> station temperatures. The line wanders over a ~2.5C range and shows no clean warming — it dips in the mid-20th century even as the planet warmed. It isn’t tracking the climate. It’s tracking <b>which stations happened to report</b>: add a batch of high-altitude or high-latitude stations and the “global temperature” lurches, because a mountaintop reads colder than a city regardless of the climate.</figcaption>
+    <figcaption>Averaging <b>absolute</b> station temperatures. The line wanders over a ~2.5C range and shows no clean warming; it even dips in the mid-20th century as the planet warmed. It isn’t tracking the climate. It’s tracking <b>which stations happened to report</b>: add a batch of high-altitude or high-latitude stations and the “global temperature” lurches, because a mountaintop reads colder than a city regardless of the climate.</figcaption>
   </figure>
   <div class="read reveal">
     <p>This is the skeptics’ strongest point, and it’s correct. A raw average of absolute temperatures is dominated by the <em>sampling</em>, not the <em>signal</em>. When the network grew from a few hundred mostly-European stations to tens of thousands spanning deserts, airports, and Arctic outposts, the average moved for reasons that have nothing to do with global warming.</p>
@@ -262,14 +262,14 @@ hr.rule{border:0; border-top:1px solid var(--rule); max-width:var(--readw); marg
 <!-- ============ 3. ANOMALIES ============ -->
 <section id="anomaly"><div class="wrap">
   <div class="read">
-    <p class="sec-no reveal">03 — The key move</p>
+    <p class="sec-no reveal">03 · The key move</p>
     <h2 class="reveal">Stop measuring temperature. Measure <em>change</em>.</h2>
-    <p class="reveal">Here are five real stations in Colorado, from the plains up to the high Rockies. Their <strong>absolute</strong> temperatures are wildly different — Crested Butte, at 2,700 metres, averages near freezing while Holly, out on the plains, is a dozen degrees warmer. As a set of thermometers to average, they look hopeless.</p>
-    <p class="reveal">Now hit the switch. Instead of each station’s temperature, plot each station’s <strong>anomaly</strong> — how far that year sits above or below <em>that station’s own</em> 1961–1990 normal. Watch what happens.</p>
+    <p class="reveal">Here are five real stations in Colorado, from the plains up to the high Rockies. Their <strong>absolute</strong> temperatures are wildly different. Crested Butte, at 2,700 metres, averages near freezing, while Holly, out on the plains, is a dozen degrees warmer. As a set of thermometers to average, they look hopeless.</p>
+    <p class="reveal">Now switch to anomalies. Instead of each station’s temperature, plot each station’s <strong>anomaly</strong>: how far that year sits above or below <em>that station’s own</em> 1961–1990 normal. Watch what happens.</p>
   </div>
   <figure class="fig reveal">
     <div class="fig-hd">
-      <span class="fig-title" id="d1-title">Five Colorado stations — absolute temperature</span>
+      <span class="fig-title" id="d1-title">Five Colorado stations, absolute temperature</span>
       <div class="controls" style="margin:0">
         <div class="seg" id="d1-seg">
           <button data-m="abs" class="on">Absolute °C</button>
@@ -279,44 +279,44 @@ hr.rule{border:0; border-top:1px solid var(--rule); max-width:var(--readw); marg
     </div>
     <div class="chart" id="chart-d1"></div>
     <div class="legend" id="d1-legend"></div>
-    <figcaption id="d1-cap">In absolute terms the stations are spread across <b>~12C</b>, set mostly by their elevation. That spread is real, permanent, and has nothing to do with climate — so it’s pure noise if what you care about is <em>change</em>. Switch to anomalies and the elevation offset subtracts out. The five lines <b>collapse onto nearly the same curve</b>: whatever the weather does, it does to all of them together.</figcaption>
+    <figcaption id="d1-cap">In absolute terms the stations are spread across <b>~12C</b>, set mostly by their elevation. That spread is real, permanent, and has nothing to do with climate, so it’s pure noise if what you care about is <em>change</em>. Switch to anomalies and the elevation offset subtracts out. The five lines <b>collapse onto nearly the same curve</b>: whatever the weather does, it does to all of them together.</figcaption>
   </figure>
   <div class="read reveal">
-    <p>This is the whole trick, and it’s almost embarrassingly simple. A thermometer is a lousy instrument for measuring <em>the temperature of the planet</em>, but an excellent instrument for measuring <em>how much warmer or cooler it is here than usual</em>. That second quantity — the anomaly — is what actually behaves itself when you average.</p>
-    <p>And crucially, it dissolves the “intensive property” objection. Nobody is claiming the mountaintop and the valley reach thermal equilibrium at some blended temperature. We’re averaging a <strong>field of departures from normal</strong> — a spatial average, the same kind of quantity as average rainfall or average elevation. It’s an index of the surface, not a claim about thermodynamics.</p>
+    <p>This is the whole trick, and it’s almost embarrassingly simple. A thermometer is a lousy instrument for measuring <em>the temperature of the planet</em>, but an excellent instrument for measuring <em>how much warmer or cooler it is here than usual</em>. That second quantity, the anomaly, is what actually behaves itself when you average.</p>
+    <p>And crucially, it dissolves the “intensive property” objection. Nobody is claiming the mountaintop and the valley reach thermal equilibrium at some blended temperature. We’re averaging a <strong>field of departures from normal</strong>: a spatial average, the same kind of quantity as average rainfall or average elevation. It’s an index of the surface, not a claim about thermodynamics.</p>
   </div>
 </div></section>
 
 <!-- ============ 4. WHY IT TRAVELS ============ -->
 <section id="travels"><div class="wrap">
   <div class="read">
-    <p class="sec-no reveal">04 — Why sparse data still works</p>
+    <p class="sec-no reveal">04 · Why sparse data still works</p>
     <h2 class="reveal">One thermometer speaks for a thousand kilometres</h2>
-    <p class="reveal">Those Colorado stations moved together — but they’re neighbors. Does the trick survive distance? Take every well-observed station, compute the year-to-year anomaly, and ask: how similar are two stations’ anomalies as a function of how far apart they are? Below is that relationship, from about a million real station pairs.</p>
+    <p class="reveal">Those Colorado stations moved together, but they’re neighbors. Does the trick survive distance? Take every well-observed station, compute the year-to-year anomaly, and ask: how similar are two stations’ anomalies as a function of how far apart they are? Below is that relationship, from about a million real station pairs.</p>
   </div>
   <figure class="fig reveal">
     <div class="fig-hd"><span class="fig-title">Anomaly correlation vs. distance between stations</span><span class="fig-sub" id="d3-sub"></span></div>
     <div class="chart" id="chart-d3"></div>
-    <figcaption>Two stations <b>1,000 km apart</b> still share about <b id="d3-k1"></b> of their year-to-year swings in anomaly — even though their <em>absolute</em> temperatures typically differ by <b id="d3-k2"></b>. Absolute temperature is intensely local (elevation, coast, city). The <em>anomaly</em> is not: warm and cool years arrive as broad, coherent patterns. This is why a station represents the change over a wide region, and why a network far sparser than today’s still pins down the global signal.</figcaption>
+    <figcaption>Two stations <b>1,000 km apart</b> still share about <b id="d3-k1"></b> of their year-to-year swings in anomaly, even though their <em>absolute</em> temperatures typically differ by <b id="d3-k2"></b>. Absolute temperature is intensely local (elevation, coast, city). The <em>anomaly</em> is not: warm and cool years arrive as broad, coherent patterns. This is why a station represents the change over a wide region, and why a network far sparser than today’s still pins down the global signal.</figcaption>
   </figure>
-  <p class="pull reveal">The absolute temperature at a point is nearly useless a hundred kilometres away. The <b>anomaly</b> at that point is still informative a <b>thousand</b> kilometres away. Sparse thermometers are fine — as long as you average the right quantity.</p>
+  <p class="pull reveal">The absolute temperature at a point is nearly useless a hundred kilometres away. The <b>anomaly</b> at that point is still informative a <b>thousand</b> kilometres away. Sparse thermometers are fine, as long as you average the right quantity.</p>
 </div></section>
 
 <!-- ============ 5. PRECISION ============ -->
 <section id="precision"><div class="wrap">
   <div class="read">
-    <p class="sec-no reveal">05 — Where the tiny error bars come from</p>
+    <p class="sec-no reveal">05 · Where the tiny error bars come from</p>
     <h2 class="reveal">Crude thermometers, precise average</h2>
-    <p class="reveal">“But each thermometer is only good to half a degree — how can the global number be good to hundredths?” Two things are happening, and they’re the reason the anomaly is knowable far more precisely than the absolute temperature ever will be.</p>
-    <p class="reveal"><strong>One: anomalies barely scatter.</strong> Within a single region in a single year, absolute temperatures are all over the place — but the anomalies are tightly bunched.</p>
+    <p class="reveal">“But each thermometer is only good to half a degree. How can the global number be good to hundredths?” Two things are happening, and they’re the reason the anomaly is knowable far more precisely than the absolute temperature ever will be.</p>
+    <p class="reveal"><strong>One: anomalies barely scatter.</strong> Within a single region in a single year, absolute temperatures are all over the place, but the anomalies are tightly bunched.</p>
   </div>
   <div class="tiles reveal">
     <div class="tile"><div class="n cool" id="tile-abs">–</div><div class="l">Typical spread of <b>absolute</b> temperatures among stations in the same region</div></div>
-    <div class="tile"><div class="n warm" id="tile-anom">–</div><div class="l">Spread of their <b>anomalies</b> — the elevation/latitude offsets are gone</div></div>
-    <div class="tile"><div class="n" id="tile-ratio">–</div><div class="l">Times less scatter — so the average of anomalies lands on a far sharper number</div></div>
+    <div class="tile"><div class="n warm" id="tile-anom">–</div><div class="l">Spread of their <b>anomalies</b>, once the elevation and latitude offsets are gone</div></div>
+    <div class="tile"><div class="n" id="tile-ratio">–</div><div class="l">Times less scatter, so the average of anomalies lands on a far sharper number</div></div>
   </div>
   <div class="read reveal">
-    <p><strong>Two: random errors cancel.</strong> Each station’s error — a slightly miscalibrated thermometer, a gust, a rounding — is roughly independent. Average many of them and the noise shrinks like one-over-the-square-root of the count. Drag the slider to average more stations and watch the uncertainty on the mean collapse.</p>
+    <p><strong>Two: random errors cancel.</strong> Each station’s error (a slightly miscalibrated thermometer, a gust, a rounding) is roughly independent. Average many of them and the noise shrinks like one-over-the-square-root of the count. Drag the slider to average more stations and watch the uncertainty on the mean collapse.</p>
   </div>
   <figure class="fig reveal">
     <div class="fig-hd"><span class="fig-title">The law of large numbers, on real station anomalies</span></div>
@@ -325,41 +325,41 @@ hr.rule{border:0; border-top:1px solid var(--rule); max-width:var(--readw); marg
       <input type="range" id="lln-slider" min="1" max="1000" value="1">
     </div></div>
     <div class="chart" id="chart-lln"></div>
-    <figcaption>Each faint dot is one station’s 2000 anomaly (individual spread ≈ <b id="lln-sig"></b>). The bar shows the 95% uncertainty on the <em>average</em> of a random <span id="lln-n2">1</span> of them: <b id="lln-ci"></b>. With a single station you’re guessing; with a few hundred, the uncertainty on the mean falls below a tenth of a degree. This is why the <b>change</b> is known to hundredths of a degree while the planet’s <b>absolute</b> temperature — which needs every unsampled valley and mountaintop modeled — is only known to a few tenths.</figcaption>
+    <figcaption>Each faint dot is one station’s 2000 anomaly (individual spread ≈ <b id="lln-sig"></b>). The bar shows the 95% uncertainty on the <em>average</em> of a random <span id="lln-n2">1</span> of them: <b id="lln-ci"></b>. With a single station you’re guessing; with a few hundred, the uncertainty on the mean falls below a tenth of a degree. This is why the <b>change</b> is known to hundredths of a degree, while the planet’s <b>absolute</b> temperature (which needs every unsampled valley and mountaintop modeled) is only known to a few tenths.</figcaption>
   </figure>
 </div></section>
 
 <!-- ============ 6. WHICH AVERAGE ============ -->
 <section id="which"><div class="wrap">
   <div class="read">
-    <p class="sec-no reveal">06 — “But which average?”</p>
+    <p class="sec-no reveal">06 · “But which average?”</p>
     <h2 class="reveal">The “arbitrary mean” objection, put to the test</h2>
-    <p class="reveal">A favorite argument: there are infinitely many kinds of average, physics doesn’t pick one, so the trend is whatever you choose. It sounds devastating. It’s also checkable — so let’s check it, two ways.</p>
+    <p class="reveal">A favorite argument: there are infinitely many kinds of average, physics doesn’t pick one, so the trend is whatever you choose. It sounds devastating. It’s also checkable, so let’s check it, two ways.</p>
     <p class="reveal">First, compute the global land anomaly four different ways: a proper area-weighted grid, a plain unweighted mean, the median, and a trimmed mean that throws out the extremes. If the choice were driving the result, these would disagree.</p>
   </div>
   <figure class="fig reveal">
     <div class="fig-hd"><span class="fig-title">Four different averaging recipes</span><span class="fig-sub">global land anomaly, °C vs. 1961–1990</span></div>
     <div class="chart" id="chart-d5a"></div>
     <div class="legend" id="d5a-legend"></div>
-    <figcaption>They lie almost on top of each other. Area-weighting matters a little for the exact value — it stops densely-sampled regions from dominating — but every recipe shows the <b>same warming</b>. The trend is a property of the data, not of the averaging choice.</figcaption>
+    <figcaption>They lie almost on top of each other. Area-weighting matters a little for the exact value (it stops densely-sampled regions from dominating), but every recipe shows the <b>same warming</b>. The trend is a property of the data, not of the averaging choice.</figcaption>
   </figure>
   <div class="read reveal">
-    <p>“Fine,” says the argument, “but you’re still using ordinary means. What about the exotic ones — geometric, harmonic, root-mean-square?” Those aren’t even defined on anomalies — you can’t take a geometric mean of negative numbers — so this is the one place we apply them to <strong>absolute temperatures</strong>, in kelvin. To keep that fair, we freeze the station set: the <span id="d5b-n">160</span> stations with an <em>unbroken</em> record since 1900, the same ones every year. (Averaging raw absolutes only misleads when the mix of stations shifts underneath you — hold the panel fixed and that problem is gone.) Here are all four means of those stations, shown as anomalies.</p>
+    <p>“Fine,” says the argument, “but you’re still using ordinary means. What about the exotic ones, like geometric, harmonic, root-mean-square?” Those aren’t even defined on anomalies (you can’t take a geometric mean of negative numbers), so this is the one place we apply them to <strong>absolute temperatures</strong>, in kelvin. To keep that fair, we freeze the station set: the <span id="d5b-n">160</span> stations with an <em>unbroken</em> record since 1900, the same ones every year. (Averaging raw absolutes only misleads when the station mix shifts underneath you; hold the panel fixed and that problem disappears.) Here are all four means of those stations, shown as anomalies.</p>
   </div>
   <figure class="fig reveal">
-    <div class="fig-hd"><span class="fig-title">The “infinitely many means” — arithmetic, harmonic, RMS, geometric</span><span class="fig-sub" id="d5b-sub">fixed panel of long-record stations · shown as anomalies</span></div>
+    <div class="fig-hd"><span class="fig-title">The “infinitely many means”: arithmetic, harmonic, RMS, geometric</span><span class="fig-sub" id="d5b-sub">fixed panel of long-record stations · shown as anomalies</span></div>
     <div class="chart" id="chart-d5b"></div>
     <div class="legend" id="d5b-legend"></div>
-    <figcaption>Four fundamentally different averaging rules, one fixed set of thermometers — and the curves are indistinguishable. Across the whole record they never pull apart by more than about <b id="d5b-k"></b>, against a warming signal of well over 2°C. The reason: these means only diverge when the numbers span a huge range, but absolute temperatures in kelvin cluster tightly around ~288 K (a ±10% spread at most). The choice of mean is a genuine mathematical freedom that, on real temperatures, changes the trend by a rounding error.</figcaption>
+    <figcaption>Four fundamentally different averaging rules, one fixed set of thermometers, and the curves are indistinguishable. Across the whole record they never pull apart by more than about <b id="d5b-k"></b>, against a warming signal of well over 2°C. The reason: these means only diverge when the numbers span a huge range, but absolute temperatures in kelvin cluster tightly around ~288 K (a ±10% spread at most). The choice of mean is a genuine mathematical freedom that, on real temperatures, changes the trend by a rounding error.</figcaption>
   </figure>
 </div></section>
 
 <!-- ============ 7. SPARSE ============ -->
 <section id="sparse"><div class="wrap">
   <div class="read">
-    <p class="sec-no reveal">07 — How little data you need</p>
+    <p class="sec-no reveal">07 · How little data you need</p>
     <h2 class="reveal">Throw most of the thermometers away</h2>
-    <p class="reveal">If the anomaly signal is really this coherent, we shouldn’t need tens of thousands of stations. Let’s test it directly: rebuild the entire global land record using only a random handful of stations, and see how close it lands to the full network. Drag to change how many.</p>
+    <p class="reveal">If the anomaly signal is really this coherent, we shouldn’t need tens of thousands of stations. Let’s test it directly: rebuild the entire global land record using only a random handful of stations, and see how close it lands to the full network. Keep scrolling to add more (or drag the slider yourself).</p>
   </div>
   <figure class="fig reveal">
     <div class="fig-hd"><span class="fig-title">Global land record from a random subset of stations</span></div>
@@ -368,77 +368,77 @@ hr.rule{border:0; border-top:1px solid var(--rule); max-width:var(--readw); marg
       <input type="range" id="sp-slider" min="0" max="4" value="2">
     </div></div>
     <div class="chart" id="chart-d6"></div>
-    <figcaption>The bold line is the full ~13,000-station reconstruction; the colored lines are two random draws of the chosen size. Even <b>20 stations</b> — scattered across the globe — recover the warming trend, just with more wiggle. By a few hundred they’re nearly the full answer. (A small network only yields a global value once enough of its stations are reporting and spread out — at least five grid cells — so the sparsest draws begin later; estimating a global mean from one or two lone stations is exactly the mistake to avoid.) The signal is redundant, spread across the whole network, just as the correlation-vs-distance curve predicted.</figcaption>
+    <figcaption>The bold line is the full ~13,000-station reconstruction; the colored lines are two random draws of the chosen size. Even <b>20 stations</b>, scattered across the globe, recover the warming trend, just with more wiggle. By a few hundred they’re nearly the full answer. (A small network only yields a global value once enough of its stations are reporting and spread out, at least five grid cells, so the sparsest draws begin later; estimating a global mean from one or two lone stations is exactly the mistake to avoid.) The signal is redundant, spread across the whole network, just as the correlation-vs-distance curve predicted.</figcaption>
   </figure>
 </div></section>
 
 <!-- ============ 8. RESULT ============ -->
 <section id="result"><div class="wrap">
   <div class="read">
-    <p class="sec-no reveal">08 — The payoff</p>
+    <p class="sec-no reveal">08 · The payoff</p>
     <h2 class="reveal">Put it together: a global temperature, built from scratch</h2>
-    <p class="reveal">Now assemble the pieces. Convert every station to an anomaly, drop the stations into an equal-area grid so no region gets an unfair vote, weight each grid cell by its true area, and average. That’s the entire method. Here is the result — a global land-temperature record, computed in a few seconds from raw GHCN data on a laptop.</p>
+    <p class="reveal">Now assemble the pieces. Convert every station to an anomaly, drop the stations into an equal-area grid so no region gets an unfair vote, weight each grid cell by its true area, and average. That’s the entire method. Here is the result: a global land-temperature record, computed in a few seconds from raw GHCN data on a laptop.</p>
   </div>
   <figure class="fig reveal">
     <div class="fig-hd"><span class="fig-title">Reconstructed global land temperature</span><span class="fig-sub">area-weighted anomaly, °C vs. 1961–1990</span></div>
     <div class="chart" id="chart-final"></div>
-    <figcaption>Built here, from scratch, with none of the fancy statistical machinery the professional groups apply — no spatial interpolation to fill the gaps, no formal uncertainty model — and it still lands squarely on the published records from <b>NOAA, NASA, Berkeley Earth, and the UK Met Office</b>, which agree with each other to a few hundredths of a degree despite using different stations, corrections, and code. That agreement is the real answer to “it’s all arbitrary”: independent teams, independent choices, same curve.</figcaption>
+    <figcaption>Built here, from scratch, with none of the fancy statistical machinery the professional groups apply (no spatial interpolation to fill the gaps, no formal uncertainty model), and it still lands squarely on the published records from <b>NOAA, NASA, Berkeley Earth, and the UK Met Office</b>, which agree with each other to a few hundredths of a degree despite using different stations, corrections, and code. That agreement is the real answer to “it’s all arbitrary”: independent teams, independent choices, same curve.</figcaption>
   </figure>
   <div class="read reveal">
-    <p>And that map of “where the thermometers are” isn’t drawn from a coastline file — it’s just the stations themselves. Land emerges because that’s where people put thermometers:</p>
+    <p>And that map of “where the thermometers are” isn’t drawn from a coastline file. It’s just the stations themselves; land emerges because that’s where people put thermometers:</p>
   </div>
   <figure class="fig reveal" style="max-width:900px">
-    <div class="fig-hd"><span class="fig-title">~4,000 GHCN stations — the dots draw the continents</span></div>
+    <div class="fig-hd"><span class="fig-title">~4,000 GHCN stations: the dots draw the continents</span></div>
     <div class="mapwrap"><canvas id="stationMap"></canvas></div>
-    <figcaption>Coverage is dense over land and, yes, thin in a few places — the deep Sahara, the poles, central Amazonia. But because each station’s anomaly speaks for a region roughly a thousand kilometres across, the gaps that matter for a <em>global average</em> are small, and the subset test above shows how gracefully the answer degrades when data is missing.</figcaption>
+    <figcaption>Coverage is dense over land and, yes, thin in a few places: the deep Sahara, the poles, central Amazonia. But because each station’s anomaly speaks for a region roughly a thousand kilometres across, the gaps that matter for a <em>global average</em> are small, and the subset test above shows how gracefully the answer degrades when data is missing.</figcaption>
   </figure>
   <div class="read reveal">
     <h3 style="margin-top:14px">And the absolute number? Also knowable</h3>
-    <p>None of this makes the planet’s <em>absolute</em> temperature unknowable — just harder to pin down than the change. Filling those gaps is exactly what a <strong>reanalysis</strong> does: systems like ECMWF’s ERA5 fold the station, ship, buoy, aircraft, and satellite records into a physics-based weather model that produces a temperature everywhere on Earth, hour by hour. Average that field and you get a genuine global figure — roughly <strong>14–15C</strong> for the near-surface air (the exact value depends on the period and the dataset).</p>
-    <p>Two honest caveats. That number is still a spatial average of a field, not a single thermodynamic temperature — the same category the skeptics object to, and the same one we’ve been comfortable with all along for rainfall or elevation. And it’s known to a few tenths of a degree, not hundredths, because it leans on the model to bridge the unsampled ground. That precision gap is the whole reason warming is tracked as an <em>anomaly</em>: the absolute baseline is a solid ~15C, and the change stacked on top of it — the part that actually matters for the climate — is what we can measure to a hair.</p>
+    <p>None of this makes the planet’s <em>absolute</em> temperature unknowable, just harder to pin down than the change. Filling those gaps is exactly what a <strong>reanalysis</strong> does: systems like ECMWF’s ERA5 fold the station, ship, buoy, aircraft, and satellite records into a physics-based weather model that produces a temperature everywhere on Earth, hour by hour. Average that field and you get a genuine global figure: roughly <strong>14–15C</strong> for the near-surface air (the exact value depends on the period and the dataset).</p>
+    <p>Two honest caveats. That number is still a spatial average of a field, not a single thermodynamic temperature. It’s the same category the skeptics object to, and the same one we’ve been comfortable with all along for rainfall or elevation. And it’s known to a few tenths of a degree, not hundredths, because it leans on the model to bridge the unsampled ground. That precision gap is the whole reason warming is tracked as an <em>anomaly</em>: the absolute baseline is a solid ~15C, and the change stacked on top of it (the part that actually matters for the climate) is what we can measure to a hair.</p>
   </div>
 </div></section>
 
 <!-- ============ 9. ADJUSTMENTS ============ -->
 <section id="adjust"><div class="wrap">
   <div class="read">
-    <p class="sec-no reveal">09 — The corrections</p>
+    <p class="sec-no reveal">09 · The corrections</p>
     <h2 class="reveal">But don’t the adjustments create the trend?</h2>
-    <p class="lead reveal">Everything so far used NOAA’s <em>homogenized</em> data — the version with corrections applied. That invites the sharpest data-processing objection there is: what if the corrections are the warming? It’s a fair challenge, and the honest way to settle it is to strip the adjustments out and look at the raw thermometer readings directly.</p>
-    <p class="reveal">First, why touch the raw numbers at all? Because a 150-year station record isn’t only a story about the weather — it’s also a story about the instrument, and the instrument kept changing. Each of these leaves a step in the data that has nothing to do with climate:</p>
+    <p class="lead reveal">Everything so far used NOAA’s <em>homogenized</em> data, the version with corrections applied. That invites the sharpest data-processing objection there is: what if the corrections are the warming? It’s a fair challenge, and the honest way to settle it is to strip the adjustments out and look at the raw thermometer readings directly.</p>
+    <p class="reveal">First, why touch the raw numbers at all? Because a 150-year station record isn’t only a story about the weather; it’s also a story about the instrument, and the instrument kept changing. Each of these leaves a step in the data that has nothing to do with climate:</p>
   </div>
   <div class="causes reveal">
-    <div class="cause"><span class="tag">Time of observation</span><h4>When the reading is taken drifted</h4><p>US volunteer observers shifted from afternoon to morning readings through the 20th century. Reset the min/max thermometer in the cool morning instead of the warm afternoon and you double-count cold days — a creeping <em>cool</em> bias.</p><span class="dir">→ suppresses the raw trend</span></div>
-    <div class="cause"><span class="tag">Instrument change</span><h4>Glass thermometers → electronic sensors</h4><p>In the 1980s thousands of liquid-in-glass thermometers in wooden screens (CRS) were swapped for electronic MMTS probes, which read daily highs slightly cooler — a sudden step down across the network.</p><span class="dir">→ suppresses the raw trend</span></div>
-    <div class="cause"><span class="tag">Station moves</span><h4>Relocations and re-sitings</h4><p>Stations get moved — off rooftops, out to airports, up or down in elevation. Each move is an abrupt jump in the record with no climatic meaning, in either direction.</p><span class="dir">→ step changes, either way</span></div>
-    <div class="cause"><span class="tag">Urbanization</span><h4>Cities growing around the sensor</h4><p>A station once in a field can end up ringed by asphalt, adding a local <em>warm</em> bias. Homogenization detects and <strong>removes</strong> this — the correction here works <em>against</em> the trend, not for it.</p><span class="dir">→ removes spurious warming</span></div>
+    <div class="cause"><span class="tag">Time of observation</span><h4>When the reading is taken drifted</h4><p>US volunteer observers shifted from afternoon to morning readings through the 20th century. Reset the min/max thermometer in the cool morning instead of the warm afternoon and you double-count cold days, a creeping <em>cool</em> bias.</p><span class="dir">→ suppresses the raw trend</span></div>
+    <div class="cause"><span class="tag">Instrument change</span><h4>Glass thermometers to electronic sensors</h4><p>In the 1980s thousands of liquid-in-glass thermometers in wooden screens (CRS) were swapped for electronic MMTS probes, which read daily highs slightly cooler: a sudden step down across the network.</p><span class="dir">→ suppresses the raw trend</span></div>
+    <div class="cause"><span class="tag">Station moves</span><h4>Relocations and re-sitings</h4><p>Stations get moved: off rooftops, out to airports, up or down in elevation. Each move is an abrupt jump in the record with no climatic meaning, in either direction.</p><span class="dir">→ step changes, either way</span></div>
+    <div class="cause"><span class="tag">Urbanization</span><h4>Cities growing around the sensor</h4><p>A station once in a field can end up ringed by asphalt, adding a local <em>warm</em> bias. Homogenization detects and <strong>removes</strong> this, so the correction here works <em>against</em> the trend, not for it.</p><span class="dir">→ removes spurious warming</span></div>
   </div>
   <div class="read reveal">
-    <p>Homogenization finds these steps statistically: it compares each station against its many neighbors — which felt the same weather but not the same instrument swap — and corrects the breaks that show up in one record and not the others. No target trend is fed in; the neighbors are the reference.</p>
+    <p>Homogenization finds these steps statistically: it compares each station against its many neighbors (which felt the same weather but not the same instrument swap) and corrects the breaks that show up in one record and not the others. No target trend is fed in; the neighbors are the reference.</p>
     <p>So does it manufacture warming? Here is the global land record built two ways with the identical method: from the fully adjusted data, and from the <strong>raw, unadjusted</strong> readings.</p>
   </div>
   <figure class="fig reveal">
     <div class="fig-hd"><span class="fig-title">Raw vs. homogenized global land temperature</span><span class="fig-sub" id="d7-sub">anomaly, °C vs. 1961–1990</span></div>
     <div class="chart" id="chart-d7"></div>
     <div class="legend" id="d7-legend"></div>
-    <figcaption>The two track each other closely. Homogenization nudges the early decades <b>down</b> and the recent decades <b>up</b> — because the big real biases (morning-observation drift, the move to MMTS) had been artificially <em>flattening</em> the raw record. So the corrections do make the warming <b>slightly larger</b> — but they plainly don’t <em>create</em> it, which is the actual accusation: the raw thermometers already warm on their own.</figcaption>
+    <figcaption>The two track each other closely. Homogenization nudges the early decades <b>down</b> and the recent decades <b>up</b>, because the big real biases (morning-observation drift, the move to MMTS) had been artificially <em>flattening</em> the raw record. So the corrections do make the warming <b>slightly larger</b>. But they plainly don’t <em>create</em> it, which is the actual accusation: the raw thermometers already warm on their own.</figcaption>
   </figure>
   <div class="tiles reveal">
     <div class="tile"><div class="n sub" id="tile-raw">–</div><div class="l"><b>Raw</b> unadjusted warming, 1850–1900 to today</div></div>
     <div class="tile"><div class="n warm" id="tile-adj">–</div><div class="l"><b>Homogenized</b> warming, same baseline</div></div>
-    <div class="tile"><div class="n" id="tile-diff">–</div><div class="l">What the adjustments <b>add</b> — they raise the total, not create it</div></div>
+    <div class="tile"><div class="n" id="tile-diff">–</div><div class="l">What the adjustments <b>add</b>, raising the total rather than creating it</div></div>
   </div>
   <p class="read reveal small" style="color:var(--muted); margin-top:-8px">Each figure is the 20-year LOWESS-smoothed level today minus the 1850–1900 average, so a single hot year (El Niño) or cold year (a big volcanic eruption) can’t tip the numbers.</p>
   <div class="read reveal">
-    <p>The raw thermometers, with <em>zero</em> corrections, warm by about <b id="d7-inline-raw">1.9</b>C since the late 1800s. Homogenization lifts that to roughly <b id="d7-inline-adj">2.2</b>C — the corrections add about a fifth on top. Take them away entirely and the warming is still unmistakable; it was never the adjustments doing the work.</p>
-    <p>One more point worth making, because it’s the reverse of the usual suspicion: on land the corrections nudge warming up, but in the <em>full global</em> record the single largest adjustment is to <strong>ocean</strong> data — fixing the switch from insulated buckets to engine-intake and buoy measurements — and it pulls the long-term trend <em>down</em>. Across the whole planet, the net effect of all adjustments is to <em>reduce</em> the estimated warming, not inflate it. Homogenization isn’t a thumb on the scale; it’s what makes independent groups, using different stations and different corrections, converge on the same answer.</p>
+    <p>The raw thermometers, with <em>zero</em> corrections, warm by about <b id="d7-inline-raw">1.9</b>C since the late 1800s. Homogenization lifts that to roughly <b id="d7-inline-adj">2.2</b>C: the corrections add about a fifth on top. Take them away entirely and the warming is still unmistakable; it was never the adjustments doing the work.</p>
+    <p>One more point worth making, because it’s the reverse of the usual suspicion: on land the corrections nudge warming up, but in the <em>full global</em> record the single largest adjustment is to <strong>ocean</strong> data (fixing the switch from insulated buckets to engine-intake and buoy measurements), and it pulls the long-term trend <em>down</em>. Across the whole planet, the net effect of all adjustments is to <em>reduce</em> the estimated warming, not inflate it. Homogenization isn’t a thumb on the scale; it’s what makes independent groups, using different stations and different corrections, converge on the same answer.</p>
   </div>
 </div></section>
 
 <!-- ============ 10. MYTHS ============ -->
 <section id="myths"><div class="wrap">
   <div class="read">
-    <p class="sec-no reveal">10 — The specific claims</p>
+    <p class="sec-no reveal">10 · The specific claims</p>
     <h2 class="reveal">Point by point</h2>
     <p class="reveal">With the mechanism in hand, the individual objections are quick to answer. Tap each to expand.</p>
   </div>
@@ -448,17 +448,17 @@ hr.rule{border:0; border-top:1px solid var(--rule); max-width:var(--readw); marg
 <!-- ============ CLOSE ============ -->
 <section id="close"><div class="wrap read">
   <p class="sec-no reveal">Takeaway</p>
-  <h2 class="reveal">So — does a global temperature exist?</h2>
-  <p class="lead reveal">If you demand a single thermodynamic temperature for a planet that ranges from –60C to +50C, then no — and no serious scientist claims one. But that was never what the global temperature record <em>is</em>.</p>
-  <p class="reveal">What exists, and what we just built, is a <strong>spatial average of anomalies</strong>: a well-defined index of how far the surface has drifted from its own baseline. It’s reproducible from raw data, robust to the choice of average, recoverable from a fraction of the stations, and pinned down to hundredths of a degree precisely because averaging kills the noise that dooms any single thermometer. It tracks the things warming is supposed to move — ocean heat, sea level, melting ice — because it’s measuring the same energy imbalance they are.</p>
-  <p class="pull reveal">The global temperature isn’t a fragile statistical trick. It’s one of the most <b>over-determined</b> numbers in all of science — and you can compute it yourself before your coffee gets cold.</p>
-  <p class="reveal small" style="color:var(--muted)">The one thing the skeptics get right — that you can’t just average raw thermometer readings — is the first thing every temperature dataset is built to avoid. The rest of the method is what this page walked through.</p>
+  <h2 class="reveal">So, does a global temperature exist?</h2>
+  <p class="lead reveal">If you demand a single thermodynamic temperature for a planet that ranges from –60C to +50C, then no, and no serious scientist claims one. But that was never what the global temperature record <em>is</em>.</p>
+  <p class="reveal">What exists, and what we just built, is a <strong>spatial average of anomalies</strong>: a well-defined index of how far the surface has drifted from its own baseline. It’s reproducible from raw data, robust to the choice of average, recoverable from a fraction of the stations, and pinned down to hundredths of a degree precisely because averaging kills the noise that dooms any single thermometer. It tracks the things warming is supposed to move (ocean heat, sea level, melting ice) because it’s measuring the same energy imbalance they are.</p>
+  <p class="pull reveal">The global temperature isn’t a fragile statistical trick. It’s one of the most <b>over-determined</b> numbers in all of science, and you can compute it yourself before your coffee gets cold.</p>
+  <p class="reveal small" style="color:var(--muted)">The skeptics get one thing right: you can’t just average raw thermometer readings. That’s the first thing every temperature dataset is built to avoid. The rest of the method is what this page walked through.</p>
 </div></section>
 
 </main>
 
 <footer class="foot"><div class="wrap read">
-  <p><strong style="color:var(--ink)">Method &amp; reproducibility.</strong> Every figure is computed from GHCN-M v4 (NOAA, quality-controlled adjusted monthly means, ~28,000 land stations). Anomalies use a 1961–1990 baseline per station; the global series bins stations into 5°×5° cells and area-weights by cosine of latitude. NOAA’s homogenization is already applied to this data upstream (except in Section 9, which uses the raw version too); what this simplified reconstruction leaves out relative to the operational datasets is spatial interpolation, formal uncertainty modelling, and ocean data — but the point is that the core method is simple, robust, and reproducible on a laptop. Land-only here; ocean temperatures are a rich second chapter.</p>
+  <p><strong style="color:var(--ink)">Method &amp; reproducibility.</strong> Every figure is computed from GHCN-M v4 (NOAA, quality-controlled adjusted monthly means, ~28,000 land stations). Anomalies use a 1961–1990 baseline per station; the global series bins stations into 5°×5° cells and area-weights by cosine of latitude. NOAA’s homogenization is already applied to this data upstream (except in Section 9, which uses the raw version too); what this simplified reconstruction leaves out relative to the operational datasets is spatial interpolation, formal uncertainty modelling, and ocean data. The point is that the core method is simple, robust, and reproducible on a laptop. Land-only here; ocean temperatures are a rich second chapter.</p>
   <p>Built for <a href="https://www.theclimatebrink.com">The Climate Brink</a>. Data: <a href="https://www.ncei.noaa.gov/pub/data/ghcn/v4/">NOAA GHCN-M v4</a>. In response to recurring “global temperature doesn’t exist” arguments. Hover charts for values; toggle theme top-right.</p>
 </div></footer>
 

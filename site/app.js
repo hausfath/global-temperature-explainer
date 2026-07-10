@@ -206,21 +206,40 @@ const degF=v=>v.toFixed(0)+'°'; const degF1=v=>fmt(v,1); const degF0=v=>Math.ro
   const c=new LineChart(node,{xs:YEARS,height:360,xTicks:XT,zeroLine:true,yPad:.1,
     formatY:v=>v.toFixed(1)+'°',
     tRows:i=>S.map((s,k)=>({color:css(cols[k]),label:s.name,val:(mode==='abs'?s.abs:s.anom)[i]}))});
-  let mode='abs';
+  let mode='abs', userTouched=false;
+  const seg=document.getElementById('d1-seg');
   function draw(animate){
     c.o.zeroLine=(mode==='anom');
     c.setSeries(S.map((s,i)=>({key:s.name,label:s.name,color:css(cols[i]),width:2,opacity:.92,
       y:(mode==='abs'?s.abs:s.anom)})),{animate});
   }
-  draw(false);
-  document.getElementById('d1-seg').addEventListener('click',e=>{
-    const b=e.target.closest('button'); if(!b)return;
-    [...e.currentTarget.children].forEach(x=>x.classList.remove('on')); b.classList.add('on');
-    mode=b.dataset.m; draw(true);
+  function switchTo(m,animate){
+    if(m===mode){return;}
+    mode=m;
+    [...seg.children].forEach(x=>x.classList.toggle('on',x.dataset.m===m));
+    draw(animate);
     document.getElementById('d1-title').textContent = mode==='abs'
-      ? 'Five Colorado stations — absolute temperature'
-      : 'Same five stations — anomalies (departure from their own normal)';
+      ? 'Five Colorado stations, absolute temperature'
+      : 'The same five stations, shown as anomalies';
+  }
+  draw(false);
+  seg.addEventListener('click',e=>{
+    const b=e.target.closest('button'); if(!b)return;
+    userTouched=true; switchTo(b.dataset.m,true);
   });
+  // Auto-reveal the anomaly view once as the reader scrolls in, in case they
+  // don't spot the toggle. A brief pause lets them register the absolute state
+  // first; any manual toggle cancels it. Skipped under reduced-motion.
+  if(!reduceMotion){
+    let done=false;
+    const io=new IntersectionObserver(es=>es.forEach(e=>{
+      if(e.isIntersecting && e.intersectionRatio>=0.55 && !done && !userTouched && mode==='abs'){
+        done=true;
+        setTimeout(()=>{ if(!userTouched) switchTo('anom',true); },1300);
+      }
+    }),{threshold:[0,0.55,1]});
+    io.observe(node);
+  }
   window.addEventListener('themechange',()=>{S.forEach((s,i)=>c.series[i].color=css(cols[i]));c.render();
     legend.innerHTML=S.map((s,i)=>`<span class="it"><span class="sw" style="background:${css(cols[i])}"></span>${s.name} <span style="color:var(--muted)">${s.elev} m</span></span>`).join('');});
 })();
@@ -345,18 +364,37 @@ const degF=v=>v.toFixed(0)+'°'; const degF1=v=>fmt(v,1); const degF0=v=>Math.ro
     tRows:i=>[{color:css('--ink-2'),label:'Full network',val:d.full[i]},
       {color:css('--s4'),label:'Subset (draw 1)',val:cur[0][i]},
       {color:css('--s1'),label:'Subset (draw 2)',val:cur[1][i]}]});
-  let cur=d.subsets['100'];
-  function set(N){cur=d.subsets[N];
+  let cur=d.subsets['100'], idx=-1, userTouched=false;
+  const slider=document.getElementById('sp-slider');
+  function set(i){
+    i=Math.max(0,Math.min(sizes.length-1,i));
+    if(i===idx){return;}
+    idx=i; const N=sizes[i]; cur=d.subsets[N];
+    document.getElementById('sp-n').textContent=labels[N];
+    slider.value=i;
     c.setSeries([
       {key:'full',label:'Full network',color:css('--ink-2'),width:2.8,y:d.full},
       {key:'d1',label:'Subset A',color:css('--s4'),width:1.6,opacity:.85,y:cur[0]},
       {key:'d2',label:'Subset B',color:css('--s1'),width:1.6,opacity:.85,y:cur[1]},
-    ]);}
-  const slider=document.getElementById('sp-slider');
-  slider.addEventListener('input',()=>{const N=sizes[+slider.value];
-    document.getElementById('sp-n').textContent=labels[N]; set(N);});
-  document.getElementById('sp-n').textContent=labels['100']; set('100');
-  window.addEventListener('themechange',()=>{set(sizes[+slider.value]);});
+    ],{animate:true});
+  }
+  slider.addEventListener('input',()=>{userTouched=true; set(+slider.value);});
+  // Scroll-driven: step from 20 up to 1,000 stations as the figure rises through
+  // the viewport, so a passive reader watches the subset tighten onto the full
+  // record. The moment the reader grabs the slider, manual control takes over.
+  function onScroll(){
+    if(userTouched||reduceMotion){return;}
+    const r=node.getBoundingClientRect(); const vh=window.innerHeight||800;
+    const p=(0.85*vh - r.top)/(0.6*vh);
+    set(Math.round(Math.max(0,Math.min(1,p))*(sizes.length-1)));
+  }
+  if(reduceMotion){ set(2); }                 // static, mid default when motion is off
+  else { set(0); onScroll(); }                // start sparse, then match scroll position
+  let ticking=false;
+  document.addEventListener('scroll',()=>{ if(!ticking){ ticking=true;
+    requestAnimationFrame(()=>{ ticking=false; onScroll(); }); } },{passive:true});
+  window.addEventListener('themechange',()=>{ if(c.series[0]){
+    c.series[0].color=css('--ink-2'); c.series[1].color=css('--s4'); c.series[2].color=css('--s1'); c.render(); } });
 })();
 
 /* ============================ FINAL RECORD ================================ */
@@ -421,22 +459,22 @@ const degF=v=>v.toFixed(0)+'°'; const degF1=v=>fmt(v,1); const degF0=v=>Math.ro
 /* ============================ MYTH CARDS ================================= */
 (function(){
   const myths=[
-    ['“Temperature is intensive — you can’t average it.”',
-     `<p>True that you can’t <b>merge</b> two objects into one blended temperature — but that was never the claim. The global record is a <b>spatial average of a field</b>, the same species of quantity as average elevation, average rainfall, or a country’s average income. Nobody objects that “average elevation” is meaningless because you can’t stack mountains.</p>
-      <p>And we don’t even average absolute temperatures — we average <b>anomalies</b>, departures from each place’s own normal. That’s an index of how the surface energy state is changing, not a claim that the planet sits at one thermodynamic temperature.</p>`],
+    ['“Temperature is intensive, so you can’t average it.”',
+     `<p>True that you can’t <b>merge</b> two objects into one blended temperature, but that was never the claim. The global record is a <b>spatial average of a field</b>, the same species of quantity as average elevation, average rainfall, or a country’s average income. Nobody objects that “average elevation” is meaningless because you can’t stack mountains.</p>
+      <p>And we don’t even average absolute temperatures. We average <b>anomalies</b>, departures from each place’s own normal. That’s an index of how the surface energy state is changing, not a claim that the planet sits at one thermodynamic temperature.</p>`],
     ['“The choice of averaging method is arbitrary.”',
-     `<p>It’s a real mathematical freedom — and, tested on the actual data, it changes the answer by a rounding error. Arithmetic, harmonic, root-mean-square and geometric means of absolute kelvin all agree to about a hundredth of a degree (Section 6), because temperatures cluster tightly around 288 K. Mean, median, and trimmed mean of the anomalies agree too. Every reasonable recipe shows the same warming.</p>`],
+     `<p>It’s a real mathematical freedom, and yet, tested on the actual data, it changes the answer by a rounding error. Arithmetic, harmonic, root-mean-square and geometric means of absolute kelvin all agree to about a hundredth of a degree (Section 6), because temperatures cluster tightly around 288 K. Mean, median, and trimmed mean of the anomalies agree too. Every reasonable recipe shows the same warming.</p>`],
     ['“Slapping °C on a statistic is a deception.”',
-     `<p>A <b>change</b> in temperature is legitimately measured in degrees — if this morning warmed by 3 degrees, the unit is degrees, full stop. The anomaly is a temperature difference, so °C is exactly the right unit. It isn’t claiming to be the reading of one giant global thermometer; it’s the average shift of millions of real readings, and “°C” is the honest label for that.</p>`],
+     `<p>A <b>change</b> in temperature is legitimately measured in degrees. If this morning warmed by 3 degrees, the unit is degrees, full stop. The anomaly is a temperature difference, so °C is exactly the right unit. It isn’t claiming to be the reading of one giant global thermometer; it’s the average shift of millions of real readings, and “°C” is the honest label for that.</p>`],
     ['“Thermometers have huge errors, so the average must too.”',
-     `<p>Backwards. Independent random errors <b>cancel</b> when you average — the uncertainty on the mean shrinks like 1/√N (Section 5). That’s why a crude instrument, repeated thousands of times, yields a precise average. The individual station might be off by half a degree; the global anomaly is pinned to a few hundredths.</p>`],
+     `<p>Backwards. Independent random errors <b>cancel</b> when you average, so the uncertainty on the mean shrinks like 1/√N (Section 5). That’s why a crude instrument, repeated thousands of times, yields a precise average. The individual station might be off by half a degree; the global anomaly is pinned to a few hundredths.</p>`],
     ['“Coverage changed / whole regions are unsampled.”',
-     `<p>Because anomalies stay correlated across ~1,000 km (Section 4), each station represents a wide area, and the global average is remarkably robust to how many stations report. Rebuilding the record from as few as 20 random stations still recovers the trend (Section 7). Changing coverage is exactly why you must work in anomalies and area-weight — do that, and the network can grow or shrink without moving the signal.</p>`],
+     `<p>Because anomalies stay correlated across ~1,000 km (Section 4), each station represents a wide area, and the global average is remarkably robust to how many stations report. Rebuilding the record from as few as 20 random stations still recovers the trend (Section 7). Changing coverage is exactly why you must work in anomalies and area-weight; do that, and the network can grow or shrink without moving the signal.</p>`],
     ['“The adjustments create the trend.”',
-     `<p>Checked head-on in Section 9: the raw, unadjusted GHCN readings warm by about <b>1.1C per century</b> since 1900 all on their own — the adjustments add only ~0.25C on top, and they nudge the trend <b>up</b>, not down, because the real instrument biases had been flattening the raw record. Take every correction away and the warming is still unmistakable.</p>
+     `<p>Checked head-on in Section 9: the raw, unadjusted GHCN readings warm by about <b>1.1C per century</b> since 1900 all on their own. The adjustments add only ~0.25C on top, and they nudge the trend <b>up</b>, not down, because the real instrument biases had been flattening the raw record. Take every correction away and the warming is still unmistakable.</p>
       <p>And across the <b>full global</b> record the net effect of adjustments is to <b>reduce</b> warming, because the largest single correction is to ocean data. A signal that also survives four independent teams using different corrections isn’t an artifact of anyone’s adjustments.</p>`],
     ['“Models are just tuned to reproduce it.”',
-     `<p>Whether or not GMST is meaningful is a question about <b>thermometers</b>, not models — and it stands on the observational data alone, as shown here. Separately, climate models are <b>not</b> tuned to the warming trend; they’re tuned to a pre-industrial energy balance, and the historical warming is an emergent output. But that’s a different debate. The temperature record is an observation, reproducible without any model at all.</p>`],
+     `<p>Whether or not a global temperature is meaningful is a question about <b>thermometers</b>, not models, and it stands on the observational data alone, as shown here. Separately, climate models are <b>not</b> tuned to the warming trend; they’re tuned to a pre-industrial energy balance, and the historical warming is an emergent output. But that’s a different debate. The temperature record is an observation, reproducible without any model at all.</p>`],
   ];
   const list=document.getElementById('myth-list');
   list.innerHTML=myths.map(([q,a])=>`<details class="myth reveal"><summary><span class="q">CLAIM</span><span class="claim">${q}</span><span class="chev">▸</span></summary><div class="ans">${a}</div></details>`).join('');
