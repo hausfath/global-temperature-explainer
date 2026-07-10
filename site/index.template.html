@@ -388,9 +388,9 @@ hr.rule{border:0; border-top:1px solid var(--rule); max-width:var(--readw); marg
     <p>And that map of “where the thermometers are” isn’t drawn from a coastline file. It’s just the stations themselves; land emerges because that’s where people put thermometers:</p>
   </div>
   <figure class="fig reveal" style="max-width:900px">
-    <div class="fig-hd"><span class="fig-title">~4,000 GHCN stations: the dots draw the continents</span></div>
+    <div class="fig-hd"><span class="fig-title">~4,000 GHCN stations: the dots draw the continents</span><span class="fig-sub">a random 1-in-7 sample of the full network</span></div>
     <div class="mapwrap"><canvas id="stationMap"></canvas></div>
-    <figcaption>Coverage is dense over land and, yes, thin in a few places: the deep Sahara, the poles, central Amazonia. But because each station’s anomaly speaks for a region roughly a thousand kilometres across, the gaps that matter for a <em>global average</em> are small, and the subset test above shows how gracefully the answer degrades when data is missing.</figcaption>
+    <figcaption>These dots are a random <b>~4,000 of the ~28,000</b> stations, thinned only so they don’t smear into a solid blob, and picked without regard to how long each station has reported. So this is the true spread of the network, not a cherry-picked set of long records. Coverage is dense over land and, yes, thin in a few places: the deep Sahara, the poles, central Amazonia. But because each station’s anomaly speaks for a region roughly a thousand kilometres across, the gaps that matter for a <em>global average</em> are small, and the subset test above shows how gracefully the answer degrades when data is missing.</figcaption>
   </figure>
   <div class="read reveal">
     <h3 style="margin-top:14px">And the absolute number? Also knowable</h3>
