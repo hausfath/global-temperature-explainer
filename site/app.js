@@ -364,7 +364,7 @@ const degF=v=>v.toFixed(0)+'°'; const degF1=v=>fmt(v,1); const degF0=v=>Math.ro
     tRows:i=>[{color:css('--ink-2'),label:'Full network',val:d.full[i]},
       {color:css('--s4'),label:'Subset (draw 1)',val:cur[0][i]},
       {color:css('--s1'),label:'Subset (draw 2)',val:cur[1][i]}]});
-  let cur=d.subsets['100'], idx=-1, userTouched=false;
+  let cur=d.subsets['100'], idx=-1, userTouched=false, timer=null;
   const slider=document.getElementById('sp-slider');
   function set(i){
     i=Math.max(0,Math.min(sizes.length-1,i));
@@ -378,21 +378,29 @@ const degF=v=>v.toFixed(0)+'°'; const degF1=v=>fmt(v,1); const degF0=v=>Math.ro
       {key:'d2',label:'Subset B',color:css('--s1'),width:1.6,opacity:.85,y:cur[1]},
     ],{animate:true});
   }
-  slider.addEventListener('input',()=>{userTouched=true; set(+slider.value);});
-  // Scroll-driven: step from 20 up to 1,000 stations as the figure rises through
-  // the viewport, so a passive reader watches the subset tighten onto the full
-  // record. The moment the reader grabs the slider, manual control takes over.
-  function onScroll(){
-    if(userTouched||reduceMotion){return;}
-    const r=node.getBoundingClientRect(); const vh=window.innerHeight||800;
-    const p=(0.85*vh - r.top)/(0.6*vh);
-    set(Math.round(Math.max(0,Math.min(1,p))*(sizes.length-1)));
+  slider.addEventListener('input',()=>{ userTouched=true; clearTimeout(timer); set(+slider.value); });
+  // Hold on the sparsest draw (20) until the chart's top edge crosses the centre
+  // of the screen, then step 20 -> 50 -> 100 -> 300 -> 1,000 one at a time on a
+  // readable timer, so it isn't tied to scroll speed and doesn't race through the
+  // options before the reader gets there. Fires once; grabbing the slider hands
+  // control back. Static mid-value under reduced-motion.
+  if(reduceMotion){ set(2); }
+  else {
+    set(0);
+    let played=false;
+    const step=i=>{
+      if(userTouched||i>=sizes.length){return;}
+      set(i);
+      if(i<sizes.length-1){ timer=setTimeout(()=>step(i+1),1000); }
+    };
+    const io=new IntersectionObserver(es=>es.forEach(e=>{
+      if(e.isIntersecting && !played && !userTouched){
+        played=true;
+        timer=setTimeout(()=>step(1),650); // beat on 20 first, then climb
+      }
+    }),{rootMargin:'-50% 0px -50% 0px',threshold:0});
+    io.observe(node);
   }
-  if(reduceMotion){ set(2); }                 // static, mid default when motion is off
-  else { set(0); onScroll(); }                // start sparse, then match scroll position
-  let ticking=false;
-  document.addEventListener('scroll',()=>{ if(!ticking){ ticking=true;
-    requestAnimationFrame(()=>{ ticking=false; onScroll(); }); } },{passive:true});
   window.addEventListener('themechange',()=>{ if(c.series[0]){
     c.series[0].color=css('--ink-2'); c.series[1].color=css('--s4'); c.series[2].color=css('--s1'); c.render(); } });
 })();
