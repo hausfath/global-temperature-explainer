@@ -341,8 +341,11 @@ const degF=v=>v.toFixed(0)+'°'; const degF1=v=>fmt(v,1); const degF0=v=>Math.ro
   const node=document.getElementById('chart-d5b'); const d=DATA.demo5b;
   const defs=[['arithmetic','Arithmetic','--s1'],['harmonic','Harmonic','--s2'],
               ['rms','Root-mean-square','--s3'],['geometric','Geometric','--s4']];
-  const c=new LineChart(node,{xs:YEARS,height:300,xTicks:XT,zeroLine:true,formatY:v=>fmt(v,1)+'°'});
-  c.setSeries(defs.map(([k,l,cc])=>({key:k,label:l,color:css(cc),width:1.8,opacity:.85,y:d[k]})));
+  // The panel only has data from 1900, so start the axis there rather than
+  // leaving an empty 1850-1900 gap. Slice xs and every series to match.
+  const i0=Math.max(0,YEARS.indexOf(d.start||1900)); const xs=YEARS.slice(i0);
+  const c=new LineChart(node,{xs,height:300,xTicks:[1900,1940,1980,2020],zeroLine:true,formatY:v=>fmt(v,1)+'°'});
+  c.setSeries(defs.map(([k,l,cc])=>({key:k,label:l,color:css(cc),width:1.8,opacity:.85,y:d[k].slice(i0)})));
   document.getElementById('d5b-legend').innerHTML=defs.map(([k,l,cc])=>
     `<span class="it"><span class="sw" style="background:${css(cc)}"></span>${l}</span>`).join('');
   if(d.n){document.getElementById('d5b-n').textContent=d.n;

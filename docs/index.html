@@ -351,7 +351,7 @@ hr.rule{border:0; border-top:1px solid var(--rule); max-width:var(--readw); marg
     <div class="fig-hd"><span class="fig-title">The “infinitely many means”: arithmetic, harmonic, RMS, geometric</span><span class="fig-sub" id="d5b-sub">fixed panel of long-record stations · shown as anomalies</span></div>
     <div class="chart" id="chart-d5b"></div>
     <div class="legend" id="d5b-legend"></div>
-    <figcaption>Four fundamentally different averaging rules, one fixed set of thermometers, and the curves are indistinguishable. Across the whole record they never pull apart by more than about <b id="d5b-k"></b>, against a warming signal of well over 2°C. The reason: these means only diverge when the numbers span a huge range, but absolute temperatures in kelvin cluster tightly around ~288 K (a ±10% spread at most). The choice of mean is a genuine mathematical freedom that, on real temperatures, changes the trend by a rounding error.</figcaption>
+    <figcaption>Four fundamentally different averaging rules, one fixed set of thermometers, and the curves sit almost on top of one another. That isn’t because the means are equal. In absolute kelvin they really do differ, in the textbook order (harmonic &lt; geometric &lt; arithmetic &lt; root-mean-square), but only by about <b>0.15°C</b>: that gap grows with the spread of the values, and station temperatures cluster tightly (a spread of σ ≈ 5.5°C around a mean near 283 K). And the gap barely changes from year to year, so subtracting each mean’s own 1961–1990 baseline cancels it, leaving only the slow drift in the between-station spread. What survives never exceeds about <b id="d5b-k"></b>, against a warming signal of well over 2°C. The choice of mean is a genuine mathematical freedom that, on real temperatures, changes the trend by a rounding error.</figcaption>
   </figure>
 </div></section>
 
@@ -808,8 +808,11 @@ const degF=v=>v.toFixed(0)+'°'; const degF1=v=>fmt(v,1); const degF0=v=>Math.ro
   const node=document.getElementById('chart-d5b'); const d=DATA.demo5b;
   const defs=[['arithmetic','Arithmetic','--s1'],['harmonic','Harmonic','--s2'],
               ['rms','Root-mean-square','--s3'],['geometric','Geometric','--s4']];
-  const c=new LineChart(node,{xs:YEARS,height:300,xTicks:XT,zeroLine:true,formatY:v=>fmt(v,1)+'°'});
-  c.setSeries(defs.map(([k,l,cc])=>({key:k,label:l,color:css(cc),width:1.8,opacity:.85,y:d[k]})));
+  // The panel only has data from 1900, so start the axis there rather than
+  // leaving an empty 1850-1900 gap. Slice xs and every series to match.
+  const i0=Math.max(0,YEARS.indexOf(d.start||1900)); const xs=YEARS.slice(i0);
+  const c=new LineChart(node,{xs,height:300,xTicks:[1900,1940,1980,2020],zeroLine:true,formatY:v=>fmt(v,1)+'°'});
+  c.setSeries(defs.map(([k,l,cc])=>({key:k,label:l,color:css(cc),width:1.8,opacity:.85,y:d[k].slice(i0)})));
   document.getElementById('d5b-legend').innerHTML=defs.map(([k,l,cc])=>
     `<span class="it"><span class="sw" style="background:${css(cc)}"></span>${l}</span>`).join('');
   if(d.n){document.getElementById('d5b-n').textContent=d.n;
