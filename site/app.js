@@ -349,7 +349,22 @@ const degF=v=>v.toFixed(0)+'°'; const degF1=v=>fmt(v,1); const degF0=v=>Math.ro
   document.getElementById('d5b-legend').innerHTML=defs.map(([k,l,cc])=>
     `<span class="it"><span class="sw" style="background:${css(cc)}"></span>${l}</span>`).join('');
   if(d.n){document.getElementById('d5b-n').textContent=d.n;
-    document.getElementById('d5b-sub').textContent=d.n+' stations continuous since '+d.start+' · shown as anomalies';}
+    document.getElementById('d5b-sub').textContent=d.n+' stations continuous since '+d.start+' · anomalies, kelvin basis';}
+  // Celsius-vs-Kelvin table: the exotic means only misbehave because of Celsius's
+  // arbitrary zero; on the kelvin scale they agree with the arithmetic mean.
+  (function(){
+    const wc=d.warm_C||{}, wk=d.warm_K||{};
+    const rows=[['arithmetic','Arithmetic'],['harmonic','Harmonic'],
+                ['rms','Root-mean-square'],['geometric','Geometric']];
+    const w=v=>v==null?'undefined':(v>=0?'+':'')+v.toFixed(2)+'°';
+    let h='<table class="scaletbl"><caption>Warming reported, early 1900s to today, by averaging rule and temperature scale</caption>'
+      +'<thead><tr><th>Averaging rule</th><th>in °C (zero = freezing)</th><th>in K (zero = absolute zero)</th></tr></thead><tbody>';
+    for(const [k,label] of rows){
+      h+=`<tr><td>${label}</td><td class="${k==='arithmetic'?'neu':'bad'}">${w(wc[k])}</td><td class="ok">${w(wk[k])}</td></tr>`;
+    }
+    h+='</tbody></table>';
+    const t=document.getElementById('scale-table'); if(t){t.innerHTML=h;}
+  })();
   // largest spread among the four means across the whole record
   let mxs=0;
   for(let i=0;i<YEARS.length;i++){const vs=defs.map(dd=>d[dd[0]][i]).filter(v=>v!=null);

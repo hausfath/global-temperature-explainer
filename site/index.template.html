@@ -176,6 +176,19 @@ figcaption b{color:var(--ink); font-weight:600}
 .cause .dir{font-family:var(--ui); font-size:11.5px; font-weight:600; margin-top:9px; display:inline-flex; align-items:center; gap:5px; color:var(--muted)}
 @media (max-width:640px){ .causes{grid-template-columns:1fr} }
 
+/* scale-comparison table (Celsius vs Kelvin) */
+.scaletbl{width:100%; max-width:600px; margin:24px auto 6px; border-collapse:collapse;
+  font-family:var(--ui); font-size:15px; font-variant-numeric:tabular-nums}
+.scaletbl caption{caption-side:top; font-size:12.5px; color:var(--muted); text-align:left; padding:0 0 8px 2px; letter-spacing:.01em}
+.scaletbl th,.scaletbl td{padding:10px 14px; text-align:right; border-bottom:1px solid var(--line)}
+.scaletbl thead th{font-weight:640; font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em}
+.scaletbl th:first-child,.scaletbl td:first-child{text-align:left; color:var(--ink); font-weight:500; font-family:var(--serif); font-size:16px}
+.scaletbl tbody tr:last-child td{border-bottom:0}
+.scaletbl .bad{color:var(--warm); font-weight:600}
+.scaletbl .ok{color:var(--good); font-weight:640}
+.scaletbl .neu{color:var(--ink-2)}
+.scaletbl thead th:last-child{color:var(--good)}
+
 /* myth cards */
 .myth{max-width:760px; margin:22px auto; border:1px solid var(--line); border-radius:14px; overflow:hidden; background:var(--surface)}
 .myth summary{list-style:none; cursor:pointer; padding:18px 22px; display:flex; gap:14px; align-items:flex-start;
@@ -344,13 +357,19 @@ hr.rule{border:0; border-top:1px solid var(--rule); max-width:var(--readw); marg
     <figcaption>They lie almost on top of each other. Area-weighting matters a little for the exact value (it stops densely-sampled regions from dominating), but every recipe shows the <b>same warming</b>. The trend is a property of the data, not of the averaging choice.</figcaption>
   </figure>
   <div class="read reveal">
-    <p>“Fine,” says the argument, “but you’re still using ordinary means. What about the exotic ones, like geometric, harmonic, root-mean-square?” Those aren’t even defined on anomalies (you can’t take a geometric mean of negative numbers), so this is the one place we apply them to <strong>absolute temperatures</strong>, in kelvin. To keep that fair, we freeze the station set: the <span id="d5b-n">160</span> stations with an <em>unbroken</em> record since 1900, the same ones every year. (Averaging raw absolutes only misleads when the station mix shifts underneath you; hold the panel fixed and that problem disappears.) Here are all four means of those stations, shown as anomalies.</p>
+    <p>“Fine,” says the argument, “but you’re still using the ordinary mean. What about the exotic ones, like geometric, harmonic, or root-mean-square?” These come with a catch the plain average doesn’t: they depend on <em>where you put zero</em>. That’s harmless for a quantity measured from a true zero, but everyday temperature isn’t. 0°C is just where water freezes, an arbitrary line. So the skeptic is quietly making two choices, not one: which mean, and which zero.</p>
+    <p>Watch what that second choice does. Here is the warming each mean reports for a fixed panel of <span id="d5b-n">160</span> stations with unbroken records since 1900, worked out first in everyday Celsius, then in kelvin, which counts from absolute zero.</p>
+  </div>
+  <div id="scale-table" class="reveal"></div>
+  <div class="read reveal">
+    <p>In Celsius the exotic means fall apart: the harmonic mean reports barely a third of the real warming, root-mean-square undershoots, and the geometric mean isn’t even a real number once a single station sits below freezing. That looks like the skeptic’s dream, until you see that it’s an <strong>artifact of the arbitrary zero</strong>. Slide the zero point and those numbers move. Switch to kelvin, which has a genuine physical zero, and all four snap onto the same ~1.5°C. The plain arithmetic mean, notably, gives the identical answer on either scale, because it’s the one average that doesn’t care where zero sits. That scale-independence is exactly why it’s the natural way to average a field.</p>
+    <p>And across the full record, on that kelvin basis, the four means are effectively one line:</p>
   </div>
   <figure class="fig reveal">
-    <div class="fig-hd"><span class="fig-title">The “infinitely many means”: arithmetic, harmonic, RMS, geometric</span><span class="fig-sub" id="d5b-sub">fixed panel of long-record stations · shown as anomalies</span></div>
+    <div class="fig-hd"><span class="fig-title">The “infinitely many means”: arithmetic, harmonic, RMS, geometric</span><span class="fig-sub" id="d5b-sub">fixed panel of long-record stations · anomalies, kelvin basis</span></div>
     <div class="chart" id="chart-d5b"></div>
     <div class="legend" id="d5b-legend"></div>
-    <figcaption>Four fundamentally different averaging rules, one fixed set of thermometers, and the curves sit almost on top of one another. That isn’t because the means are equal. In absolute kelvin they really do differ, in the textbook order (harmonic &lt; geometric &lt; arithmetic &lt; root-mean-square), but only by about <b>0.15°C</b>: that gap grows with the spread of the values, and station temperatures cluster tightly (a spread of σ ≈ 5.5°C around a mean near 283 K). And the gap barely changes from year to year, so subtracting each mean’s own 1961–1990 baseline cancels it, leaving only the slow drift in the between-station spread. What survives never exceeds about <b id="d5b-k"></b>, against a warming signal of well over 2°C. The choice of mean is a genuine mathematical freedom that, on real temperatures, changes the trend by a rounding error.</figcaption>
+    <figcaption>On the kelvin scale the four rules are nearly identical. They do differ a little in absolute terms, in the textbook order (harmonic &lt; geometric &lt; arithmetic &lt; root-mean-square), but only by about <b>0.15°C</b>, because that gap grows with the spread of the values and station temperatures cluster tightly (σ ≈ 5.5°C around a mean near 283 K). Shown as anomalies the constant part of that gap subtracts out, so the curves never separate by more than about <b id="d5b-k"></b>, against a warming signal of well over 2°C. On the scale where these means are physically meaningful, the choice between them changes the trend by a rounding error.</figcaption>
   </figure>
 </div></section>
 

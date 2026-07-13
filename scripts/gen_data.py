@@ -213,11 +213,35 @@ for yi in range(len(years)):
 def anomize(x):
     x = np.array(x, dtype=float); b = (years >= 1961) & (years <= 1990)
     return x - np.nanmean(x[b])
+
+# The four means DEPEND on the zero point (except the arithmetic mean).  To show
+# that Kelvin isn't a trick but a necessity, compute the warming each mean reports
+# (mean of 1995-2024 minus mean of 1900-1929) on BOTH the everyday Celsius scale
+# (arbitrary zero) and the kelvin scale (true zero).  In Celsius the ratio-scale
+# means (harmonic/geometric/RMS) misbehave; in kelvin they all agree.
+def _mean4(col):
+    a = np.mean(col); h = 1.0/np.mean(1.0/col); q = np.sqrt(np.mean(col**2))
+    g = np.exp(np.mean(np.log(col))) if np.all(col > 0) else np.nan
+    return {"arithmetic": a, "harmonic": h, "rms": q, "geometric": g}
+def _warming(mat):
+    early = [yr_list.index(y) for y in range(1900, 1930)]
+    late = [yr_list.index(y) for y in range(1995, 2025)]
+    out = {}
+    for k in ("arithmetic", "harmonic", "rms", "geometric"):
+        e = np.nanmean([_mean4(mat[:, yi])[k] for yi in early])
+        l = np.nanmean([_mean4(mat[:, yi])[k] for yi in late])
+        d = l - e
+        out[k] = None if not np.isfinite(d) else round(float(d), 2)
+    return out
 OUT["demo5b"] = {
     "arithmetic": r(anomize(ar).tolist(),3), "harmonic": r(anomize(ha).tolist(),3),
     "rms": r(anomize(rm).tolist(),3), "geometric": r(anomize(ge).tolist(),3),
     "n": int(panel.sum()), "start": panel_start,
+    "warm_C": _warming(ann_abs[panel]),          # everyday Celsius (arbitrary zero)
+    "warm_K": _warming(ann_abs[panel] + 273.15), # kelvin (true zero)
 }
+print("   warm_C:", OUT["demo5b"]["warm_C"])
+print("   warm_K:", OUT["demo5b"]["warm_K"])
 
 # ---------------------------------------------------------------------------
 # DEMO 6: sparse sampling recovery -- global anomaly with N random stations
